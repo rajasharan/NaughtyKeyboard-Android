@@ -2,10 +2,16 @@ package com.rajasharan.naughtystringskeyboard;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.JsonReader;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,22 +19,31 @@ import java.util.List;
  * Created by rajasharan on 8/15/15.
  */
 public class KeyboardAdapter extends RecyclerView.Adapter<KeyboardAdapter.Holder> {
+    private static final String TAG = "KeyboardAdapter";
+
     private List<String> mStrings;
-    private ViewGroup.LayoutParams mLayoutParams;
+    private LayoutParams mLayoutParams;
     private NaughtyStringsIME mIME;
 
     public KeyboardAdapter(Context context, NaughtyStringsIME ime) {
         mStrings = new ArrayList<>();
-        mStrings.add("hello 1");
-        mStrings.add("hello 2");
-        mStrings.add("hello 3");
-        mStrings.add("hello 4");
-        mStrings.add("hello 5");
-        mStrings.add("hello 6");
-        mStrings.add("hello 7");
+        try {
+            JsonReader reader = new JsonReader(new InputStreamReader(context.getAssets().open("blns.json"), "UTF-8"));
+            reader.beginArray();
+            while (reader.hasNext()) {
+                mStrings.add(reader.nextString());
+            }
+            reader.endArray();
+            reader.close();
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, "", e);
+        } catch (IOException e) {
+            Log.e(TAG, "", e);
+        } catch (Exception e) {
+            Log.e(TAG, "", e);
+        }
 
-        mLayoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        mLayoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         mIME = ime;
     }

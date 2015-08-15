@@ -21,7 +21,7 @@ public class NaughtyStringsIME extends InputMethodService implements View.OnClic
     @Override
     public void onClick(View v) {
         String string = ((TextView)v).getText().toString();
-        Log.d(TAG, string);
+        //Log.d(TAG, string);
         getCurrentInputConnection().commitText(string, 1);
     }
 
