@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Naughty Strings Keyboard</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="label_subtype_generic">%s</string>
+    <string name="label_subtype_en_GB">English (GB)</string>
+</resources>
